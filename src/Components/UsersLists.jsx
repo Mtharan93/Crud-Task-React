@@ -11,6 +11,13 @@ function UserLists() {
 
   const [newName, setNewName] = useState("");
   const [show, setShow] = useState(false);
+  const [clickedUser, setClickedUser] = useState(0)
+
+  function changeIsReply(id){
+    setClickedUser(id)
+    setShow(!show)
+  } 
+
   const capitalizeFirst = (str) =>
     str.charAt(0).toUpperCase() +
     str
@@ -31,6 +38,7 @@ function UserLists() {
                   className="icon-modify-user"
                   onClick={() => {
                     setShow(true);
+                    changeIsReply(user.id)
                   }}
                 />
                 <FontAwesomeIcon
@@ -52,7 +60,7 @@ function UserLists() {
             <p> {capitalizeFirst(user.otherSkills)}</p>
             <p> {capitalizeFirst(user.address)}</p>
             <p> {user.comments}</p>
-            {show ? (
+            {show && clickedUser == user.id ? (
               <div>
                 <input
                   type="text"
